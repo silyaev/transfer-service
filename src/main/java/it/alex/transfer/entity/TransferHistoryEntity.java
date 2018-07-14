@@ -23,7 +23,7 @@ public class TransferHistoryEntity extends AbstractEntity {
     @Column(name = "TO_ACCOUNT")
     private long toAccount;
 
-    @Column(name = "VALUE")
+    @Column(name = "VALUE", precision = 19, scale = 4)
     private BigDecimal value;
 
     @Column(name = "STATUS", columnDefinition = "char")

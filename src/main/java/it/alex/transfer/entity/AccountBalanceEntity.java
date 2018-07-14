@@ -22,7 +22,7 @@ public class AccountBalanceEntity implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "VALUE")
+    @Column(name = "VALUE", precision = 19, scale = 4)
     private BigDecimal value;
 
     @Column(name = "LAST_UPDATE")
