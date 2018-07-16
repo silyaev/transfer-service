@@ -5,8 +5,10 @@ import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import it.alex.transfer.config.AppContext;
-import it.alex.transfer.model.Account;
+import it.alex.transfer.model.AccountResponse;
 import it.alex.transfer.model.ErrorResponse;
+import it.alex.transfer.model.TransferRequest;
+import it.alex.transfer.model.TransferResponse;
 import it.alex.transfer.service.ApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +42,7 @@ public class HttpRouter extends AllDirectives {
                 get(() ->
                         pathPrefix("account", () ->
                                 path(longSegment(), (Long id) -> {
-                                    final CompletionStage<Optional<Account>> futureMaybeItem = apiService.getAccount(id);
+                                    final CompletionStage<Optional<AccountResponse>> futureMaybeItem = apiService.getAccount(id);
                                     return onSuccess(futureMaybeItem, maybeItem ->
                                             maybeItem.map(item -> completeOK(item, Jackson.marshaller()))
                                                     .orElseGet(() -> complete(StatusCodes.NOT_FOUND, ErrorResponse.builder()
@@ -50,6 +52,14 @@ public class HttpRouter extends AllDirectives {
                                                                     .errors(Collections.emptyList())
                                                                     .build()
                                                             , Jackson.marshaller()))
+                                    );
+                                }))),
+                post(() ->
+                        path("transfer", () ->
+                                entity(Jackson.unmarshaller(TransferRequest.class), order -> {
+                                    CompletionStage<TransferResponse> transfer = apiService.moveMoney(order);
+                                    return onSuccess(transfer, result ->
+                                            completeOK(result, Jackson.marshaller())
                                     );
                                 })))
         );

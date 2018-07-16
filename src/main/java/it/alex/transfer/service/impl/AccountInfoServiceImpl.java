@@ -3,7 +3,7 @@ package it.alex.transfer.service.impl;
 import it.alex.transfer.entity.AccountBalanceEntity;
 import it.alex.transfer.entity.AccountEntity;
 import it.alex.transfer.exception.DataValuesValidationException;
-import it.alex.transfer.model.Account;
+import it.alex.transfer.model.AccountResponse;
 import it.alex.transfer.repository.AccountRepository;
 import it.alex.transfer.service.AccountInfoService;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     }
 
     @Override
-    public Optional<Account> findAccount(Long id) {
+    public Optional<AccountResponse> findAccount(Long id) {
 
-        Account.AccountBuilder builder = Account.builder()
+        AccountResponse.AccountResponseBuilder builder = AccountResponse.builder()
                 .id(id);
         try (final Session session = sessionFactory.openSession()) {
 
@@ -43,7 +43,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
             builder.balance(balance.getValue());
 
         } catch (DataValuesValidationException ex) {
-            log.info("result findAccount id={} " + ex.getMessage());
+            log.info("result findAccount id={} {}", id, ex.getMessage());
             return Optional.empty();
         }
 
