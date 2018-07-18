@@ -7,7 +7,6 @@ import it.alex.transfer.exception.DataValuesValidationException;
 import it.alex.transfer.model.TransferRequest;
 import it.alex.transfer.model.TransferResponse;
 import it.alex.transfer.model.TransferStatus;
-
 import it.alex.transfer.repository.AccountRepository;
 import it.alex.transfer.repository.TransferHistoryRepository;
 import it.alex.transfer.service.TransferService;
@@ -97,10 +96,10 @@ public class TransferServiceImpl implements TransferService {
             responseBuilder.status(TransferStatus.DECLINED)
                     .description("Don't have money on account for make operation. value=" + sourceValue);
         } else {
-            AccountBalanceEntity targetBalance = accountRepository.findBalanceById(request.getFromAccountId())
+            AccountBalanceEntity targetBalance = accountRepository.findBalanceById(request.getToAccountId())
                     .orElseThrow(() -> createDataError("Target account balance not found for accountId "
                             + request.getToAccountId()));
-            BigDecimal targetValue = Optional.ofNullable(sourceBalance.getValue())
+            BigDecimal targetValue = Optional.ofNullable(targetBalance.getValue())
                     .orElseThrow(() -> createDataError("Target account balance value is null for account "
                             + request.getToAccountId()));
 
