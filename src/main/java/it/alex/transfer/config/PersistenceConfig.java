@@ -1,10 +1,9 @@
 package it.alex.transfer.config;
 
 import com.typesafe.config.Config;
-
+import it.alex.transfer.entity.AccountBalanceEntity;
 import it.alex.transfer.entity.AccountEntity;
 import it.alex.transfer.entity.TransferHistoryEntity;
-import it.alex.transfer.entity.AccountBalanceEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
@@ -75,7 +74,7 @@ public class PersistenceConfig {
         settings.put(Environment.PASS, dbConfig.getString(PASS));
         settings.put(Environment.DIALECT, dbConfig.getString(DIALECT));
         settings.put(Environment.HBM2DDL_AUTO, VALIDATE);
-        settings.put(Environment.SHOW_SQL, true);
+        settings.put(Environment.SHOW_SQL, false);
 
 
         final Config hikariConfig = Optional.of(dbConfig.getConfig(HIKARI))
