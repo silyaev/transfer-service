@@ -16,7 +16,7 @@ public class HttpConfig {
     private static final String PARAMETER_HTTP = "http";
 
     private final Config applicationConfig;
-    private Config httpConfig;
+    private Config config;
     private String host;
     private Integer port;
 
@@ -27,13 +27,13 @@ public class HttpConfig {
     }
 
     private void init() {
-        httpConfig = Optional.ofNullable(applicationConfig.getConfig(PARAMETER_HTTP))
+        config = Optional.ofNullable(applicationConfig.getConfig(PARAMETER_HTTP))
                 .orElseThrow(() -> new IllegalArgumentException("Http config not found in application config"));
-        log.info("Start prepared Http Server config for {}", httpConfig);
+        log.info("Start prepared Http Server config for {}", config);
 
-        host = Optional.ofNullable(httpConfig.getString(PARAMETER_HOST))
+        host = Optional.ofNullable(config.getString(PARAMETER_HOST))
                 .orElseThrow(() -> new IllegalArgumentException("host value not found"));
-        port = Integer.valueOf(Optional.ofNullable(httpConfig.getString(PARAMETER_PORT))
+        port = Integer.valueOf(Optional.ofNullable(config.getString(PARAMETER_PORT))
                 .orElseThrow(() -> new IllegalArgumentException("host value not found")));
     }
 
