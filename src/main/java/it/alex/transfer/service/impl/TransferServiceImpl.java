@@ -94,6 +94,7 @@ public class TransferServiceImpl implements TransferService {
             history.setStatus(TransferStatus.DECLINED);
             historyRepository.save(history);
             responseBuilder.status(TransferStatus.DECLINED)
+                    .balance(sourceValue)
                     .description("Don't have money on account for make operation. value=" + sourceValue);
         } else {
             AccountBalanceEntity targetBalance = accountRepository.findBalanceById(request.getToAccountId())
@@ -115,6 +116,7 @@ public class TransferServiceImpl implements TransferService {
             historyRepository.save(history);
 
             responseBuilder.status(TransferStatus.COMPLETED)
+                    .balance(newSourceValue)
                     .description("Done and new balance=" + newSourceValue);
 
         }
