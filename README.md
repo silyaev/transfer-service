@@ -30,7 +30,7 @@ Copy and paste the following lines for testing the application:
 
 check first default account by account id=1 
 
-    curl -H "Content-Type: application/json" -X GET  http://localhost:8080/account/1
+    curl -X GET  http://localhost:8080/account/1
 
 The application server should respond with the following:
 
@@ -44,7 +44,7 @@ The application server should respond with the following:
     
 check second account default account by account id=2
 
-    curl -H "Content-Type: application/json" -X GET  http://localhost:8080/account/2
+    curl -X GET  http://localhost:8080/account/2
     
 respond:
     
@@ -80,7 +80,7 @@ respond:
 check new account balance values:
 account id=1
 
-    curl -H "Content-Type: application/json" -X GET  http://localhost:8080/account/1
+    curl -X GET  http://localhost:8080/account/1
 respond:
     
     {
@@ -93,7 +93,7 @@ respond:
 
 account id=2
 
-    curl -H "Content-Type: application/json" -X GET  http://localhost:8080/account/2
+    curl -X GET  http://localhost:8080/account/2
 respond:
 
     {
@@ -107,7 +107,7 @@ respond:
 
 Send new POST request to server for move money( value=12.22) from account id=1 to account id=2
 
-     curl -H "Content-type: application/json" -X POST -d '{"transactionId": "tx-2346", "fromAccountId": 1, "toAccountId":2,"value": 12.22, "description":"Second first test"}' http://localhost:8080/transfer
+     curl -H "Content-type: application/json" -X POST -d '{"transactionId": "tx-2346", "fromAccountId": 1, "toAccountId":2,"value": 12.22, "description":"second test"}' http://localhost:8080/transfer
 respond:
 
     {
@@ -116,7 +116,7 @@ respond:
       "id": "6dd5d665-36b4-4115-b82c-86f859bed296",
       "referenceId": 6,
       "request": {
-        "description": "Second first test",
+        "description": "second test",
         "fromAccountId": 1,
         "toAccountId": 2,
         "transactionId": "tx-2346",
